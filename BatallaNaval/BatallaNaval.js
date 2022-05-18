@@ -63,7 +63,7 @@ class Posicion {
     }
 }
 
-const tamanoTablero = 10;
+const tamanoTablero = 5;
 const cantBarcos = 3;
 
 //Caracteres para mostrar como tablero
@@ -92,7 +92,7 @@ let tablero1 = crearTablero(tamanoTablero);
 let tablero2 = crearTablero(tamanoTablero);
 
 //*Pedir los nombres de los jugadores
-console.log("BATALLA NAVAL");
+console.log("BATALLA NAVAL\n");
 
 nombre1 = prompt("Ingrese el nombre del jugador 1");
 nombre2 = prompt("Ingrese el nombre del jugador 2");
@@ -113,23 +113,15 @@ posBarcos2 = pedirPosiciones(cantBarcos);
 console.log("El jugador " + nombre2 + " ha ingresado sus barcos");
 mostrarTablero(tablero2);
 
-console.log("\n\n\n\n"); //Separador
+console.log("\n\n\n"); //Separador
 
 //*Jugar
 while (ganador == "") { //Mientras no haya un ganador
-    console.log("Tablero de " + nombre1 + ":");
-    mostrarTablero(tablero1);
-
-    console.log("\nTablero de " + nombre2 + ":");
-    mostrarTablero(tablero2);
-    
     //Turno del jugador 1
     if (realizarTurno(nombre1, tablero1, posBarcos2)) { //Si el jugador atina el ataque
         puntos1++; //Sumarle un punto
     }
     
-    console.log("\n"); //Separador
-
     //Turno del jugador 2
     if (realizarTurno(nombre2, tablero2, posBarcos1)) { //Si el jugador atina el ataque
         puntos2++; //Sumarle un punto
@@ -143,16 +135,24 @@ while (ganador == "") { //Mientras no haya un ganador
         ganador = nombre2;
     }
 
+    console.log("\n\n"); //Separador
+
+    console.log("Tablero de " + nombre1 + ":");
+    mostrarTablero(tablero1);
+
+    console.log("\nTablero de " + nombre2 + ":");
+    mostrarTablero(tablero2);
+
     alert("\n\n --- >>> Fin del turno <<< ---\n\n");
     console.log("\n\n --- >>> Fin del turno <<< ---\n\n");
 }
 
 if (ganador == "empate") {
     alert("\n\n--->>>Empate. Ambos jugadores terminaron con los barcos del otro en el mismo turno\n");
-    console.log("\n\n--->>>Empate. Ambos jugadores terminaron con los barcos del otro en el mismo turno\n");
+    console.log("\n\n--->>>Empate. Ambos jugadores terminaron con los barcos del otro en el mismo turno\n\n");
 } else {
     alert("\n\n--->>>El ganador es " + ganador + "\n");
-    console.log("\n\n--->>>El ganador es " + ganador + "\n");
+    console.log("\n\n--->>>El ganador es " + ganador + "\n\n");
 }
 
 console.log("Tablero de " + nombre1 + ":");
@@ -226,11 +226,13 @@ function realizarTurno(nombre, tablero, posEnemigo) {
 
     if (tablero[ataque.x][ataque.y] == atacado || tablero[ataque.x][ataque.y] == destruido) {
         alert("    Esa posicion ya habia sido atacada");
+        console.log(nombre + " volvió a atacar la posición " + ataque.toString());
         return false; //Indicar que el ataque no alcanzó objetivo
     } else { //Si la posicion no habia sido atacada
         for (let i = 0; i < posEnemigo.length; i++) {
             if (posEnemigo[i].equals(ataque)) { //Si el enemigo tiene un barco en la posicion atacada
                 alert("    El ataque fue exitoso");
+                console.log(nombre + " destruyó un barco en la posición " + ataque.toString());
                 tablero[ataque.x][ataque.y] = destruido; //Actualizar el tablero
                 return true; //Indicar que el ataque fue exitoso
             }
@@ -238,6 +240,7 @@ function realizarTurno(nombre, tablero, posEnemigo) {
 
         //Si se llega aqui, significa que el ataque no fue correcto
         alert("    El ataque no alcanzo nigun objetivo");
+        console.log(nombre + " atacó sin exito la posición " + ataque.toString());
         tablero[ataque.x][ataque.y] = atacado;
         return false; //Indicar que el ataque no alcanzó objetivo
     }
