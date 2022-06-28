@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar a un Usuario</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!-- 
+INSTRUCCIONES: Crear un formulario utilizando boostrap con lo siguiente 
+              Agregar Usuario
+Nombre      Apellido Paterno      Apellido Materno 
+Fecha Nacimiento          Domicilio            Estado
+Correo          Telefono 
+          Boton de enviar 
+Utilizando columnas, clases y diferentes tipos de inputs para la informacion (date, text, number, email)
+
+Agregar una imagen al final en el centro de la pantalla -->
+    <h1 class="col-md-12 text-primary text-center mt-5 mb-4 text-capitalize">Registrar nuevo usuario</h1>
+
+    <form class="col-md-10 offset-1">
+        <div class="row mb-3">
+            <div class="col">
+                <label for="nombre" class="form-label">Nombre(s)</label>
+                <input type="text" id="nombre" class="form-control text-capitalize">
+            </div>
+            <div class="col">
+                <label for="apellido-pat" class="form-label">Apellido Paterno</label>
+                <input type="text" id="apellido-pat" class="form-control">
+            </div>
+            <div class="col">
+                <label for="apellido-mat" class="form-label">Apellido Materno</label>
+                <input type="text" id="apellido-mat" class="form-control">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="calle" class="form-label">Domicilio</label>
+                <div class="input-group">
+                    <label for="calle" class="input-group-text">Calle:</label>
+                    <input type="text" id="calle" class="form-control">
+                    <label for="colonia" class="input-group-text">Colonia:</label>
+                    <input type="text" id="colonia" class="form-control">
+                    <label for="municipio" class="input-group-text">Municipio:</label>
+                    <input type="text" id="municipio" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label for="estado" class="form-label">Estado</label>
+                <select id="estado" class="form-select">
+                    <option value="aguascalientes">Aguascalientes</option>
+                    <option value="baja-california">Baja California</option>
+                    <option value="baja-california-sur">Baja California Sur</option>
+                    <option value="campeche">Campeche</option>
+                    <option value="coahuila">Coahuila</option>
+                    <option value="colima">Colima</option>
+                    <option value="chiapas">Chiapas</option>
+                    <option value="chihuahua">Chihuahua</option>
+                    <option value="durango">Durango</option>
+                    <option value="ciudad-mexico">Ciudad de México</option>
+                    <option value="guanajuato">Guanajuato</option>
+                    <option value="guerrero">Guerrero</option>
+                    <option value="hidalgo">Hidalgo</option>
+                    <option value="jalisco">Jalisco</option>
+                    <option value="mexico">México</option>
+                    <option value="michoacan">Michoacán</option>
+                    <option value="morelos">Morelos</option>
+                    <option value="nayarit">Nayarit</option>
+                    <option value="nuevo-leon">Nuevo León</option>
+                    <option value="oaxaca">Oaxaca</option>
+                    <option value="puebla">Puebla</option>
+                    <option value="queretaro">Querétaro</option>
+                    <option value="quintana-roo">Quintana Roo</option>
+                    <option value="san-luis-potosi">San Luis Potosí</option>
+                    <option value="sinaloa">Sinaloa</option>
+                    <option value="sonora">Sonora</option>
+                    <option value="tabasco">Tabasco</option>
+                    <option value="tamaulipas">Tamaulipas</option>
+                    <option value="tlaxcala">Tlaxcala</option>
+                    <option value="veracruz">Veracruz</option>
+                    <option value="yucatan">Yucatán</option>
+                    <option value="zacatecas">Zacatecas</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-md-2">
+                <label for="nacimiento" class="form-label">Fecha de Nacimiento</label>
+                <input type="date" id="nacimiento" class="form-control">
+            </div>
+            <div class="col-md-5">
+                <label for="usuario-correo" class="form-label">Correo</label>
+                <div class="input-group">
+                    <input type="email" id="usuario-correo" class="form-control">
+                    <label class="input-group-text">@</label>
+                    <input type="email" id="dominio-correo" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="number" id="telefono" class="form-control">
+            </div>
+        </div>
+        <div id="alerta-error" class="alert alert-danger d-none" role="alert">Faltan campos por llenar</div>
+        <div id="alerta-exito" class="alert alert-success d-none" role="alert">Usuario registrado con éxito</div>
+        <button type="button" id="btn-registrar" class="btn btn-primary">Registrar</button>
+    </form>
+
+    <script>
+        var alertaError = document.getElementById("alerta-error");
+        var alertaExito = document.getElementById("alerta-exito");
+        var btnRegistrar = document.getElementById("btn-registrar");
+
+        btnRegistrar.addEventListener('click', () => {
+            let datos = {
+                nombre: document.getElementById("nombre").value,
+                apellidoPat: document.getElementById("apellido-pat").value,
+                apellidoMat: document.getElementById("apellido-mat").value,
+                calle: document.getElementById("calle").value,
+                colonia: document.getElementById("colonia").value,
+                municipio: document.getElementById("municipio").value,
+                estado: document.getElementById("estado").value,
+                nacimiento: document.getElementById("nacimiento").value,
+                usuarioCorreo: document.getElementById("usuario-correo").value,
+                dominioCorreo: document.getElementById("dominio-correo").value,
+                telefono: document.getElementById("telefono").value,
+            };
+
+            for (const indice in datos) {
+                const d = datos[indice];
+
+                if (!d) { //Si el campo no se ha llenado
+                    alertaExito.classList.replace("d-block", "d-none"); //Ocultar la alerta
+                    alertaError.classList.replace("d-none", "d-block"); //Mostrar la alerta
+                    return; //No comprobar el resto
+                }
+            }
+
+            alertaExito.classList.replace("d-none", "d-block"); //Mostrar la alerta
+            alertaError.classList.replace("d-block", "d-none"); //Ocultar la alerta
+        });
+    </script>
+
+    <!-- No sé exactamente para qué funciona -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

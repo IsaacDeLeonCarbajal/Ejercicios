@@ -1,0 +1,9 @@
+body {
+    background-color:rgb(255, 255, 255);
+}
+
+.titulo {
+    /* background-color: red; */
+    color: rgb(13, 110, 253);
+    text-align: center;
+}
